@@ -2,10 +2,13 @@ Add-Type -AssemblyName System.Web
 $hostPort = 8080
 $guestPort = 443
 
+# Not using $env:USERNAME because this script needs to run as an administrator, and the username at that point will likely be different than the logged in user, at least within an Active Directory domain environment. 
+# This function will instead get the current logged in user and strip the domain from the username. If you didn't strip the domain, the output would be DOMAIN\username
+#
+# To easily make this usuable outside of an AD domain, you can probably just delete this function and change $(loggedInUser) to $env:USERNAME within the 'Set-Ports' function.
 function Get-LoggedInUser($loggedInUser) {
   (Get-WMIObject -class Win32_ComputerSystem | Select-Object -ExpandProperty UserName | Out-String).trim("$env:USERDOMAIN\").trim()
 }
-
 
 function Test-Config {
   $checkPorts = Invoke-Expression "netsh interface portproxy show v4tov4 listenport=$hostPort listenaddress=0.0.0.0"
