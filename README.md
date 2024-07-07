@@ -16,3 +16,5 @@ At the time of writing this, you can't easily set a static IP in WSL2, and can't
 - Uses [netsh](https://learn.microsoft.com/en-us/windows-server/networking/technologies/netsh/netsh) to do port forwarding on ports 8080 and 443 (can easily change the ports via variables in the script if desired)
 - Reads IP stored in `.wslip` in order to do the port forwarding
 - Needs to be run as admin (most likely)
+
+![screenshot](./u0zkhtkbai.png)
